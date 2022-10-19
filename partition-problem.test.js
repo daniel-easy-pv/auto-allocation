@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+const { expect } = require('expect');
 const partition = require('./partition-problem');
 
 test('can solve subset sum problem', () => {
@@ -37,4 +38,12 @@ test('can allocate balls into urns', () => {
         [[2, 4, 5, 6], [0, 3], [1, 7]],
         [[3, 4, 5, 6], [0, 2], [1, 7]],
       ]);
+});
+
+test('can allocate trackers into urns, removing duplicates based on inverters', () => {
+    expect(partition.allocateTrackersIntoUrns([2, 2], [1, 1, 1, 1], [0, 0, 1, 1])).toEqual([
+        [[0, 1], [2, 3]],
+        [[0, 2], [1, 3]],
+        [[2, 3], [0, 1]],
+    ]);
 });

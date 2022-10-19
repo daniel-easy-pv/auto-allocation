@@ -9,15 +9,6 @@
 const d = require('./daniel-math');
 const comb = require('./combinatorics');
 
-// function binPackingOptions(itemSizes, binSizes) {
-//     const result = [];
-//     return result;
-// }
-
-// function getAllSubsets(array) {
-//     return array.reduce((subsets, value) => subsets.concat(subsets.map((set) => [value, ...set])), [[]]);
-// }
-
 function subsetSumProblem(arr, target) {
     // https://stackoverflow.com/questions/53659151/return-all-subsets-whose-sum-is-a-given-value-subset-sum-problem
     function* subsets(values, sum, parts = []) {
@@ -54,26 +45,6 @@ function subsetSumProblem(arr, target) {
     result.forEach((arr) => arr.sort((a, b) => a - b));
     result = unique(result);
     return result;
-}
-
-function getBinWithFewestBalls(ballSizes, binSizes) {
-    if (binSizes.length === 0) { return null; }
-    const numBalls = [];
-    const subsets = [];
-    for (let i = 0; i < binSizes.length; i++) {
-        const binSize = binSizes[i];
-        subsets[i] = subsetSumProblem(ballSizes, binSize);
-        numBalls[i] = subsets[i].length;
-    }
-    let bestIndex = 0;
-    let bestSubset = subsets[0];
-    for (let i = 0; i < numBalls.length; i++) {
-        if (subsets[i].length < bestSubset.length) {
-            bestIndex = i;
-            bestSubset = subsets[i];
-        }
-    }
-    return { bestIndex, bestSubset };
 }
 
 function subsetSumIndicesWithOK(target, arr, ok) {
@@ -184,6 +155,27 @@ function allocateBallsIntoUrns(urnCapacities, ballSizes, test = false) {
     return allocations;
 }
 
+function allocateTrackersIntoUrns(urnCapacities, trackerSizes, trackerIndexToInverterIndex) {
+    const allocations = allocateBallsIntoUrns(urnCapacities, trackerSizes);
+    const result = [];
+    const done = [];
+    for (const allocation of allocations) {
+        // check if allocation is done already
+        if (!done.includes(JSON.stringify(allocation))) {
+            result.push(allocation);
+            let permutations = d.permuteTrackers(trackerIndexToInverterIndex);
+            permutations.forEach((permutation) => {
+                let permutatedAllocation = [];
+                for (let partition of allocation) {
+                    permutatedAllocation.push(partition.map((val) => permutation[val]));
+                }
+                done.push(JSON.stringify(permutatedAllocation));
+            });
+        }
+    }
+    return result;
+}
+
 module.exports = {
- subsetSumProblem, subsetSumIndicesWithOK, getBinWithFewestBalls, allocateBallsIntoUrns,
+ subsetSumProblem, subsetSumIndicesWithOK, allocateBallsIntoUrns, allocateTrackersIntoUrns,
 };
