@@ -10,7 +10,7 @@ function andy() {
         translated[i] = [];
         for (let j = 0; j < allocation.length; j++) {
             const block = allocation[j];
-            translated[i][j] = block.map((i) => names[i]);
+            translated[i][j] = block.map((x) => names[x]);
         }
     }
     return allocations;

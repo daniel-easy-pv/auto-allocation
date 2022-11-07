@@ -16,5 +16,7 @@ module.exports = {
   },
   rules: {
     indent: 'off',
+    'no-plusplus': 'off',
+    'no-console': 'off',
   },
 };
