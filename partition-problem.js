@@ -104,7 +104,9 @@ function allocateBallsIntoUrns(urnCapacities, ballSizes, test = false) {
             if (allocation.flat(Infinity).map((i) => ballSizes[i]).reduce((a, b) => a + b, 0) !== totalUrnCapacity) {
                 allocation = 'dead-end';
             }
-            allocations.push(...allocation);
+            if (allocation !== 'dead-end') {
+                allocations.push(...allocation);
+            }
             currentPath[pointerIndex] += 1;
         } else if (pointerIndex > 0) {
             currentPath[pointerIndex] = 0;
@@ -177,5 +179,5 @@ function allocateTrackersIntoUrns(urnCapacities, trackerSizes, trackerIndexToInv
 }
 
 module.exports = {
- subsetSumProblem, subsetSumIndicesWithOK, allocateBallsIntoUrns, allocateTrackersIntoUrns,
+    subsetSumProblem, subsetSumIndicesWithOK, allocateBallsIntoUrns, allocateTrackersIntoUrns,
 };
