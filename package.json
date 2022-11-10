@@ -10,8 +10,7 @@
     "test": "jest",
     "start": "node index.js",
     "check": "node ./bin/check.js",
-    "example-partition": "node ./bin/example-partition.js",
-    "example-salesman": "node ./bin/example-salesman.js"
+    "example-partition": "node ./bin/example-partition.js"
   },
   "name": "auto-allocation",
   "version": "1.0.0",
