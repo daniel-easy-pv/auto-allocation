@@ -18,5 +18,6 @@ module.exports = {
     indent: 'off',
     'no-plusplus': 'off',
     'no-console': 'off',
+    'no-tabs': 0,
   },
 };

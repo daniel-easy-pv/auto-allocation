@@ -6,8 +6,8 @@
 
 /* eslint-disable max-len */
 
-const d = require('./daniel-math');
-const comb = require('./combinatorics');
+const d = require('./utils/daniel-math');
+const comb = require('./utils/combinatorics');
 
 function subsetSumProblem(arr, target) {
     // https://stackoverflow.com/questions/53659151/return-all-subsets-whose-sum-is-a-given-value-subset-sum-problem

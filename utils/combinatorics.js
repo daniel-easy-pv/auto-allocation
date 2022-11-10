@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * Copyright 2012 Akseli Palén.
  * Created 2012-07-15.
@@ -71,9 +72,9 @@
  *   k_combinations([], 0)
  *   -> []
  */
- function k_combinations(set, k) {
+function k_combinations(set, k) {
 	let i; let j; let combs; let head; let
-tailcombs;
+		tailcombs;
 
 	// There is no way to take e.g. sets of 5 elements from
 	// a set of 4.
@@ -82,12 +83,12 @@ tailcombs;
 	}
 
 	// K-sized set has only one K-sized subset.
-	if (k == set.length) {
+	if (k === set.length) {
 		return [set];
 	}
 
 	// There is N 1-sized subsets in a N-sized set.
-	if (k == 1) {
+	if (k === 1) {
 		combs = [];
 		for (i = 0; i < set.length; i++) {
 			combs.push([set[i]]);
@@ -146,39 +147,41 @@ tailcombs;
  *   -> [[1]]
  */
 function combinations(set) {
-	let k; let i; let combs; let
-k_combs;
-	combs = [];
+	let k;
+	let i;
+	let kCombs;
+	const combs = [];
 
 	// Calculate all non-empty k-combinations
 	for (k = 1; k <= set.length; k++) {
-		k_combs = k_combinations(set, k);
-		for (i = 0; i < k_combs.length; i++) {
-			combs.push(k_combs[i]);
+		kCombs = k_combinations(set, k);
+		for (i = 0; i < kCombs.length; i++) {
+			combs.push(kCombs[i]);
 		}
 	}
 	return combs;
 }
 
 function permutations(inputArr) {
-	var results = [];
-  
-	function permute(arr, memo) {
-	  var cur, memo = memo || [];
-  
-	  for (var i = 0; i < arr.length; i++) {
-		cur = arr.splice(i, 1);
-		if (arr.length === 0) {
-		  results.push(memo.concat(cur));
+	const results = [];
+
+	function permute(arr, memo0) {
+		let cur;
+		const memo = memo0 || [];
+
+		for (let i = 0; i < arr.length; i++) {
+			cur = arr.splice(i, 1);
+			if (arr.length === 0) {
+				results.push(memo.concat(cur));
+			}
+			permute(arr.slice(), memo.concat(cur));
+			arr.splice(i, 0, cur[0]);
 		}
-		permute(arr.slice(), memo.concat(cur));
-		arr.splice(i, 0, cur[0]);
-	  }
-  
-	  return results;
+
+		return results;
 	}
-  
+
 	return permute(inputArr);
-  }
+}
 
 module.exports = { k_combinations, combinations, permutations };

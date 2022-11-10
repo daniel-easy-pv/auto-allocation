@@ -1,4 +1,4 @@
-const allInverters = require('./allInverters');
+const allInverters = require('./data/allInverters');
 
 function getPotentialInverters() {
   const stringInverters = Object.values(allInverters).filter((inverter) => inverter.sort === 'string');
