@@ -88,6 +88,10 @@ function permuteTrackers(inverterIndices) {
     return flattened.map((arr) => invP.map((i) => arr[i]));
 }
 
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
 module.exports = {
     numOccurrences,
     indicesOf,
@@ -96,4 +100,5 @@ module.exports = {
     shrinkArray,
     inversePermutation,
     permuteTrackers,
+    onlyUnique,
 };

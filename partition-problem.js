@@ -157,15 +157,37 @@ function allocateBallsIntoUrns(urnCapacities, ballSizes, test = false) {
     return allocations;
 }
 
+function getPermutationLabel(trackerSizes, trackerIndexToInverterIndex) {
+    const result = Array(trackerSizes.length).fill(0);
+    const inverterIndices = trackerIndexToInverterIndex.filter(d.onlyUnique);
+    let curr = -1;
+    for (const inverterIndex of inverterIndices) {
+        const positions = d.indicesOf(trackerIndexToInverterIndex, inverterIndex);
+        const done = [];
+        for (const position of positions) {
+            const trackerSize = trackerSizes[position];
+            if (done.includes(trackerSize)) {
+                result[position] = curr;
+            } else {
+                curr += 1;
+                result[position] = curr;
+                done.push(trackerSize);
+            }
+        }
+    }
+    return result;
+}
+
 function allocateTrackersIntoUrns(urnCapacities, trackerSizes, trackerIndexToInverterIndex) {
     const allocations = allocateBallsIntoUrns(urnCapacities, trackerSizes);
+    const permutationLabel = getPermutationLabel(trackerSizes, trackerIndexToInverterIndex);
     const result = [];
     const done = [];
     for (const allocation of allocations) {
         // check if allocation is done already
         if (!done.includes(JSON.stringify(allocation))) {
             result.push(allocation);
-            let permutations = d.permuteTrackers(trackerIndexToInverterIndex);
+            let permutations = d.permuteTrackers(permutationLabel);
             permutations.forEach((permutation) => {
                 let permutatedAllocation = [];
                 for (let partition of allocation) {
@@ -179,5 +201,5 @@ function allocateTrackersIntoUrns(urnCapacities, trackerSizes, trackerIndexToInv
 }
 
 module.exports = {
-    subsetSumProblem, subsetSumIndicesWithOK, allocateBallsIntoUrns, allocateTrackersIntoUrns,
+    subsetSumProblem, subsetSumIndicesWithOK, allocateBallsIntoUrns, allocateTrackersIntoUrns, getPermutationLabel,
 };

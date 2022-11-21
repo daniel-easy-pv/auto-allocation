@@ -8,11 +8,10 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "node index.js",
-    "check": "node ./bin/check.js",
-    "example-partition": "node ./bin/example-partition.js"
+    "example": "node ./bin/example.js",
+    "andy": "node ./bin/andy.js"
   },
-  "name": "auto-allocation",
+  "name": "tracker-allocation",
   "version": "1.0.0",
   "main": ".eslintrc.js",
   "dependencies": {

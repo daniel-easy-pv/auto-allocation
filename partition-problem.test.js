@@ -23,7 +23,7 @@ test('can allocate balls into urns', () => {
         [[0], [1, 2]],
         [[1], [0, 2]],
         [[2], [0, 1]],
-      ]);
+    ]);
     expect(partition.allocateBallsIntoUrns([55, 17, 38], [8, 8, 9, 9, 12, 8, 26, 30], true)).toEqual([
         [[0, 1, 2, 7], [3, 5], [4, 6]],
         [[0, 1, 3, 7], [2, 5], [4, 6]],
@@ -37,7 +37,7 @@ test('can allocate balls into urns', () => {
         [[1, 3, 4, 6], [0, 2], [5, 7]],
         [[2, 4, 5, 6], [0, 3], [1, 7]],
         [[3, 4, 5, 6], [0, 2], [1, 7]],
-      ]);
+    ]);
 });
 
 test('can allocate trackers into urns, removing duplicates based on inverters', () => {
@@ -45,5 +45,32 @@ test('can allocate trackers into urns, removing duplicates based on inverters', 
         [[0, 1], [2, 3]],
         [[0, 2], [1, 3]],
         [[2, 3], [0, 1]],
+    ]);
+});
+
+test('can get label permutations 0', () => {
+    const trackerSizes = [1, 1, 2, 3];
+    const trackerIndexToInverterIndex = [0, 0, 1, 1];
+    const label = partition.getPermutationLabel(trackerSizes, trackerIndexToInverterIndex);
+    expect(label).toEqual([
+        0, 0, 1, 2,
+    ]);
+});
+
+test('can get label permutations 1', () => {
+    const trackerSizes = [1, 1, 2, 3];
+    const trackerIndexToInverterIndex = [0, 1, 2, 3];
+    const label = partition.getPermutationLabel(trackerSizes, trackerIndexToInverterIndex);
+    expect(label).toEqual([
+        0, 1, 2, 3,
+    ]);
+});
+
+test('can get label permutations 2', () => {
+    const trackerSizes = [1, 2, 3, 4];
+    const trackerIndexToInverterIndex = [0, 0, 1, 1];
+    const label = partition.getPermutationLabel(trackerSizes, trackerIndexToInverterIndex);
+    expect(label).toEqual([
+        0, 1, 2, 3,
     ]);
 });
